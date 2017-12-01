@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "blackstone_layer2",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "gid": 31, "zcta5ce10": "23061", "store__": 1297.0, "f3": "Gloucester, VA", "f5": "VA", "store_numb": 1297.0, "city": "GLOUCESTER", "proper": "Gloucester", "state": "VA", "full": "Gloucester, VA", "city1": "Federalsburg", "f_miles_fr": 211.225750885, "f_miles__1": 0.0, "f_miles__2": 115.16241565599999, "miles_fed": 211.226, "miles_blac": 116.111 }, "geometry": { "type": "Point", "coordinates": [ -76.552278288706816, 37.433701902176288 ] } },
+{ "type": "Feature", "properties": { "gid": 33, "zcta5ce10": "23188", "store__": 1598.0, "f3": "Williamsburg, VA", "f5": "VA", "store_numb": 1598.0, "city": "WILLIAMSBURG", "proper": "Williamsburg", "state": "VA", "full": "Williamsburg, VA", "city1": "Federalsburg", "f_miles_fr": 207.34342487699999, "f_miles__1": 0.0, "f_miles__2": 106.337704714, "miles_fed": 207.343, "miles_blac": 107.287 }, "geometry": { "type": "Point", "coordinates": [ -76.755513915576856, 37.339405711308437 ] } },
+{ "type": "Feature", "properties": { "gid": 39, "zcta5ce10": "22572", "store__": 1348.0, "f3": "Warsaw, VA", "f5": "VA", "store_numb": 1348.0, "city": "WARSAW", "proper": "Warsaw", "state": "VA", "full": "Warsaw, VA", "city1": "Federalsburg", "f_miles_fr": 164.401096438, "f_miles__1": 0.0, "f_miles__2": 101.732102862, "miles_fed": 164.401, "miles_blac": 117.377 }, "geometry": { "type": "Point", "coordinates": [ -76.77805410511283, 37.97585605634962 ] } }
+]
+}

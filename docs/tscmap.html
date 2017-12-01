@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ESFP to TSC</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+        <script src="./all_fed.js"></script>
+        <script src="./all_blackstone.js"></script>
+        <script src="./maine_layer.js"></script>
+       
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <style>
+            #header{
+                height: 75px;
+                background-color: darkgoldenrod;
+                
+             }
+            #mapdiv{
+                height: 725px;
+                background-color: salmon;
+                
+            }
+            #side_panel{
+                height:725px;
+                background-color:beige;
+            }
+        </style>  
+        </head>
+        <body>
+            <div id="header" class="col-md-12">
+                <h1 class="text-center">ESFP to TSC</h1>
+            </div>
+            <div id ="side_panel" class ="col-md-3">
+                <h1 class="text-center">Zoom To Mills</h1>
+                <button id="zoomfed" class="form-control btn-primary">Federalsburg</button>
+                <button id="zoomblack" class="form-control btn-primary">Blackstone</button>
+            </div>
+            <div id="mapdiv" class="col-md-9"></div>
+        
+            <script>
+                var mymap = L.map('mapdiv')
+                mymap.setView([38.294232, -75.593505],5);
+            
+            
+                var backgroundlayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+                mymap.addLayer(backgroundlayer);
+            
+                var federalsburg = L.marker([38.690344, -75.764380]).bindPopup('Federalsburg').openPopup().addTo(mymap);
+               
+                var Blackstone = L.marker([37.081209, -77.998712]).bindPopup('Blackstone').openPopup().addTo(mymap);
+                
+                $("#zoomfed").click(function(){
+                    mymap.setView([38.690344, -75.764380],12);
+                });
+                
+                $("#zoomblack").click(function(){
+                    mymap.setView([38.690344, -75.764380],12);
+                });
+                
+                var fedburgOptions = {
+				radius: 8,
+				fillColor: "#ADFF2F",
+				color: "#000",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+                }
+                L.geoJson(all_fed, {pointToLayer: function (feature, latlng) { 
+					var str = "<h4>"+feature.properties.f3+"</h4><hr>";
+                    str += "<h3 class ='text-left'>Store Number:</h3>";
+                    str += "<h4>"+feature.properties.store__+"</h4><hr>";
+                    str += "<h3 class = 'text-left'>Miles From Federalsburg:</h3>";
+                    str += "<h4>"+feature.properties.miles_fed+"</h4><hr>";
+                    str += "<h3 class ='text-left'>Miles From Blackstone</h3>";
+                    str += "<h4>"+feature.properties.miles_blac+"</h4>";
+					return L.circleMarker(latlng,fedburgOptions).bindPopup(str)
+				}}).addTo(mymap);
+                
+                var blackstoneOptions = {
+				radius: 8,
+				fillColor: "#9932CC",
+				color: "#000",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+                }
+                
+                L.geoJson(all_black, {pointToLayer: function (feature, latlng) { 
+					var str = "<h4>"+feature.properties.f3+"</h4><hr>";
+                    str += "<h3 class ='text-left'>Store Number:</h3>";
+                    str += "<h4>"+feature.properties.store__+"</h4><hr>";
+                    str += "<h3 class = 'text-left'>Miles From Blackstone:</h3>";
+                    str += "<h4>"+feature.properties.miles_blac+"</h4><hr>";
+                    str += "<h3 class ='text-left'>Miles From Federalsburg</h3>";
+                    str += "<h4>"+feature.properties.miles_fed+"</h4>";
+					return L.circleMarker(latlng,blackstoneOptions).bindPopup(str)
+				}}).addTo(mymap);
+                
+                var maineOptions = {
+				radius: 8,
+				fillColor: "#A52A2A",
+				color: "#000",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+                }
+                
+                L.geoJson(maine, {pointToLayer: function (feature, latlng) { 
+					var str = "<h4>"+feature.properties.f3+"</h4><hr>";
+                    str += "<h3 class ='text-left'>Store Number:</h3>";
+                    str += "<h4>"+feature.properties.store__+"</h4><hr>";
+                    str += "<h3 class = 'text-left'>Miles From Lincoln:</h3>";
+                    str += "<h4>"+feature.properties.miles_from+"</h4><hr>";
+                    str += "<h3 class ='text-left'>Miles From Federalsburg</h3>";
+                    str += "<h4>"+feature.properties.miles_fr_1+"</h4>";
+					return L.circleMarker(latlng,maineOptions).bindPopup(str)
+				}}).addTo(mymap);
+            </script>
+            
+        </body>
+</html>
+         
