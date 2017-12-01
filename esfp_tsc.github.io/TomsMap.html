@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Leaflet Map</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/Blackstone1.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/Federalsburg2.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/fedline.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/blackstoneline.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/optimize_fedline.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/optimize_fed.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/optimize_blackline.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/optimize_black.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/Toms Map/measure_tool.js"></script>
+	<script src="http://students.salisbury.edu/~bvangieson1/udemy/attractions.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+</head>
+	<body>
+		<div id ="side_panel" class ="col-md-3">
+        <h1 class="text-center">Federalsburg</h1>
+		<button id="zoomfed" class="form-control btn-primary">Federalsburg</button>
+        </div>
+		<div id="map" style="width: 1500px; height: 755px">
+			
+		</div>
+		<!-- Our web map and content will go here -->
+		<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+		<script>
+			// Create variable to hold map element, give initial settings to map
+			var map = L.map('map',{ center: [38.294454, -75.593338], zoom: 6});
+			// Add OpenStreetMap tile layer to map element
+			L.tileLayer('https://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}', { attribution: '© OpenStreetMap' }).addTo(map);
+			
+			//Blackstone VA Marker
+			var myDataPoint = L.marker([37.081209, -77.998712]).bindPopup('Blackstone').openPopup().addTo(map);
+			//Federalsburg
+			var mydatapoint2 = L.marker([38.690277, -75.765067]).bindPopup('Federalsburg').openPopup().addTo(map);
+			//var mydatapoint2 = L.Marker([38.690277, -75.765067]).bindPopup('Federalsburg').openPopup().addTo(map);
+			
+			var geojsonMarkerOptions = {
+				radius: 8,
+				fillColor: "#ADFF2F",
+				color: "#000",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			};
+			
+			L.geoJson(blackstone, {
+				pointToLayer: function (feature, latlng) {
+					return L.circleMarker(latlng, geojsonMarkerOptions);
+				}
+				
+			}).addTo(map);
+			
+			var fedburgOptions = {
+				radius: 8,
+				fillColor: "#9932CC",
+				color: "#000",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			};	
+			L.geoJson(fedburgmap, {pointToLayer: function (feature, latlng) { 
+					var str = "<h4>"+feature.properties.City+"</h4><hr>";
+					return L.circleMarker(latlng).bindPopup(str)
+				}
+				
+			}).addTo(map);
+			
+			$("#zoomfed").click(function(){map.setView([38.690277, -75.765067],17);
+			});
+			//var fedlineOptions = {
+				//radius: 8,
+			//	fillColor: "#A52A2A",
+			//	color: "#000",
+			//	weight: 1,
+			//	opacity: 1,
+			//	fillOpacity: 0.8
+			//};	
+			L.geoJson(fedline, {
+				style: Fedlinestyle}).addTo(map);
+			//}).addTo(map);
+			
+			
+			L.geoJson(blackstoneline, {
+				style: blackstonelinestyle}).addTo(map);
+			
+			//var controlLayers = L.control.layers().addTo(map);
+			
+			//var opt_fedburgOptions = {
+//radius: 8,
+			//	fillColor: "#9932CC",
+			//	color: "#000",
+			//	weight: 1,
+			//	opacity: 1,
+			//	fillOpacity: 0.8
+				//}
+			//var OptFed = L.geoJson(opt_fed, {pointToLayer: function (feature, latlng) {
+			//	var str= 
+			//		return L.circleMarker(latlng, opt_fedburgOptions)}})
+			//	
+			
+			//controlLayers.addOverlay(OptFed, 'My GeoJSON layer title');
+			//var measureControl = new L.Control.Measure(
+//{
+			//		position: 'topright',
+			////		primaryLengthUnit: 'meters',
+			//		activeColor: '#ABE67E'
+			//	}
+			//);
+			//measureControl.addTo(map);
+			//var optFedline = L.geoJson(opt_fedline, {
+			//	style: opt_fedlinestyle}),
+				
+			//assigning variables to layers for control	
+			//var aShp = L.layerGroup([OptFed])
+				//bShp = L.layerGroup([optFedline]);
+			
+			//var optimizedistance = {
+				//"Optimized Federalsburg Stores":aShp
+				//"Optimized Federalsburg Stores":bShp
+			//};
+			//L.control.layers(optimizedistance).addTo(map);
+		</script>
+		
+	</body>
+</html>
